@@ -3,10 +3,28 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-    <h1>{{title}}</h1>
-     <a routerLink="/Hero">Heroes</a>
-      <a routerLink="/Mirror">Mirrors</a>
-       <a routerLink="/newhero">New hero</a>
+  
+<div id="main">
+    <div class="cleared reset-box"></div>
+<div class="bar nav">
+<div class="nav-outer">
+<div class="nav-wrapper">
+<div class="nav-inner">
+	<ul class="hmenu">
+		<li>
+		 <a routerLink="/Hero">Heroes</a>
+		</li>	
+		<li>
+		 <a routerLink="/Mirror">Mirrors</a>
+		</li>	
+		<li>
+		<a routerLink="/newhero">New hero</a>
+		</li>	
+	</ul>
+</div>
+</div>
+</div>
+</div>   
     <router-outlet></router-outlet>
   `
 })

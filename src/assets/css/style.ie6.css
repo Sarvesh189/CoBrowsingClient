@@ -1,0 +1,199 @@
+.cleared {
+   width:1px;
+}
+/* Start Box */
+.box, .box-body {
+   zoom:1;
+}
+/* End Box */
+/* Start Bar */
+.bar{
+   zoom:1;
+}
+/* End Bar */
+/* end Page */
+
+/* begin Menu */
+ul.hmenu, ul.hmenu ul, ul.hmenu li, ul.hmenu a {
+   zoom:1;
+}
+.hmenu li.hmenuhover{
+   z-index: 10000;
+}
+.hmenu .hmenuhoverUL{
+   visibility: visible;
+   top: 100%;
+   left: 0;
+}
+.hmenu .hmenuhoverUL .hmenuhoverUL{
+   top: 0;
+   left: 100%;
+}
+.hmenu ul li {
+   float: left !important;
+   clear: both;
+   width: 100%;
+}
+.nav
+{
+   zoom: 1;
+   height: 48px;
+   background:#EE3911;
+}
+
+/* end Menu */
+
+/* begin MenuItem */
+.hmenu a 
+{
+   display:inline-block;
+   color: #E9ECEB;
+   padding: 0 30px;
+   line-height: 48px;
+   text-align: center;
+}
+
+.hmenu a.active 
+{
+   color: {ActiveTextColor};
+}
+
+.hmenu a:hover, .hmenuhoverA,  .hmenuhover a 
+{
+   color: #F1F3F2;
+   background-color:#BA2D0D;
+}
+
+/* end MenuItem */
+
+/* begin MenuSeparator */
+ul.hmenu li {
+   margin-left:expression(this.previousSibling==null?'0':'0');
+}
+ul.hmenu li li{
+   margin-left:0;
+}
+
+/* end MenuSeparator */
+
+/* begin Box, Sheet */
+.sheet {
+   background:#FCFAF8;
+}
+/* end Box, Sheet */
+
+/* begin Layout */
+.content-layout, .content-layout-row, .layout-cell 
+{
+   display: block;
+   zoom: 1;
+}
+.layout-cell
+{
+   position:relative;
+   float: left;
+   clear: right;
+}
+/* end Layout */
+
+/* begin Button */
+.button-wrapper{
+   zoom: 1;
+}
+.button-wrapper .button-l, .button-wrapper .button-r {
+   display: none;
+}
+.button-wrapper .button {
+   float: left;
+}
+/* end Button */
+
+/* begin Box, Block */
+.block {
+   background:#F7F7F7;
+}
+/* end Box, Block */
+
+/* begin BlockHeader */
+.blockheader {
+   background:#EE3911;
+}
+/* end BlockHeader */
+
+/* begin Box, BlockContent */
+.blockcontent {
+   background:#F7F7F7;
+}
+.blockcontent-body ul li{
+   height: 1%;
+}
+
+/* end Box, BlockContent */
+
+/* begin Box, Post */
+.post {
+   background:#FCFAF8;
+}
+/* end Box, Post */
+
+/* begin PostIcons, PostHeaderIcons */
+.postheadericons span{
+   zoom: 1;
+}
+/* end PostIcons, PostHeaderIcons */
+
+/* begin PostBullets */
+.post ul li, .post ol ul li
+{
+   height: 1%;
+   padding-left: 10px;
+   /* makes "ul li" not to align behind the image if they are in the same line */
+  overflow-x: visible;
+   overflow-y: hidden;
+}
+
+.post ul ol li
+{
+   background: none;
+   padding-left: 0;
+   /* overrides overflow for "ul li" and sets the default value */
+  overflow: visible;
+}
+/* end PostBullets */
+
+/* begin PostMetadata, PostMetadataFooter */
+.postmetadatafooter
+{
+   zoom:1;
+   background:#E5E7E4;
+}
+/* end PostMetadata, PostMetadataFooter */
+
+/* begin PostIcons, PostFooterIcons */
+.postfootericons span{
+   zoom: 1;
+}
+/* end PostIcons, PostFooterIcons */
+
+/* begin Footer */
+.footer-body{
+   padding-right: 0;
+   zoom:1;
+}
+.footer{
+   zoom:1;
+   background:#292929;
+}
+
+/* end Footer */
+
+/* begin LayoutCell, content */
+.sidebar1 {
+   width: auto;
+   background:#F7F7F7;
+}
+/* end LayoutCell, content */
+
+/* begin LayoutCell, sidebar1 */
+/* end LayoutCell, sidebar1 */
+

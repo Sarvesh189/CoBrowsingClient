@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation } from '@angular/core';
 import {Hero} from './hero';
 import { HeroService } from './hero.service';
 import { HerosocketService }         from './herosocket.service';
@@ -8,6 +8,7 @@ import { HerosocketService }         from './herosocket.service';
   templateUrl: './app.component.html',
 
   styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None,
   providers:[HeroService,HerosocketService]
 })
 export class HeroesComponent  implements OnInit {

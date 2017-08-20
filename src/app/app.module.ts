@@ -12,20 +12,24 @@ import {NewheroComponent} from './newhero.component';
 
 import { RouterModule, Routes }   from '@angular/router';
 import {screenshare} from './sharingevent.directive';
+import{ModalService,MessageObservableService}from './modal.service';
+import{ModalComponent} from './modal.component';
+
 //import{SafeHtmlPipe} from './safe-html.pipe';
 
 const appRoutes: Routes = [
    { path: 'Hero', component: HeroesComponent },
    { path: 'Mirror/**', component: MirrorComponent },
      { path: 'newhero', component: NewheroComponent },
+    
    { path: '**', component: MirrorComponent },
    
 ];
 
 @NgModule({
-  declarations: [AppComponent,HeroDetailComponent,HeroesComponent,MirrorComponent,SharescreenComponent,NewheroComponent,screenshare,SafeHtmlPipe],
+  declarations: [AppComponent,ModalComponent,HeroDetailComponent,HeroesComponent,MirrorComponent,SharescreenComponent,NewheroComponent,screenshare,SafeHtmlPipe],
   imports: [BrowserModule,FormsModule,RouterModule.forRoot(appRoutes)],
-  providers: [HeroService,HerosocketService],
+  providers: [HeroService,HerosocketService,ModalService,MessageObservableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

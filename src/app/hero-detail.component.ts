@@ -36,9 +36,9 @@ var target = document.querySelector("html") as Node;
 // create an observer instance
 var observer = new MutationObserver(function(mutations) {
     mutations.forEach(function(mutation) {
-      alert(mutation);
+      console.log(mutation);
       if (mutation.type === 'childList') {
-        var list_values = [].slice.call(target.childNodes)
+        let list_values = [].slice.call(target.childNodes)
             .map( function(node) { return node.innerHTML; })
             .filter( function(s) {
               if (s === '<br>') {
