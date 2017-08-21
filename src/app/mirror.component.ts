@@ -2,7 +2,7 @@ import{Component,DoCheck,Pipe,PipeTransform,KeyValueDiffers,Inject,ViewEncapsula
 import{HerosocketService} from './herosocket.service';
 import { DomSanitizer,DOCUMENT } from '@angular/platform-browser';
 import{ActivatedRoute} from'@angular/router';
-import { ModalService } from './modal.service';
+import { ModalService,MessageObservableService } from './modal.service';
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {
@@ -29,7 +29,7 @@ export class MirrorComponent implements DoCheck,OnInit
     message:string;
     differ: any;
     
-    constructor(public herosocketservice:HerosocketService,public domSanitize:DomSanitizer,private differs: KeyValueDiffers,@Inject(DOCUMENT) private  mirrordocument: Document, private currentroute:ActivatedRoute,private modalService:ModalService)
+    constructor(public herosocketservice:HerosocketService,public domSanitize:DomSanitizer,private differs: KeyValueDiffers,@Inject(DOCUMENT) private  mirrordocument: Document, private currentroute:ActivatedRoute,private modalService:ModalService,private messageOservice:MessageObservableService)
     {
       console.log("Mirror component instanciation started");
       let _chatroomId='';
@@ -43,7 +43,7 @@ export class MirrorComponent implements DoCheck,OnInit
       
         console.log(_chatroomId);
       
-      herosocketservice.connect("");
+      
       
       this.differ = differs.find({}).create(null);
       console.log("Mirrorcomponent instanciated") 
@@ -52,12 +52,16 @@ export class MirrorComponent implements DoCheck,OnInit
       }
       ngOnInit()
       {
+
         if(this.modalService != null)
           {
             this.modalService.displaychatbox(this.herosocketservice.currentchatroomid);
            }
          else {console.log("modal service is null");}
 
+        
+
+         this.herosocketservice.connect("");
       }
       ngDoCheck()
       {
@@ -83,7 +87,7 @@ export class MirrorComponent implements DoCheck,OnInit
 
       handleSelectItem():void{
        // alert('1')
-       console.log(document);
+       console.log("handleselectedItem is called");
        if(document.getElementById("mastercontent")!=null)
         {
          let selectElements = document.getElementById("mastercontent").querySelectorAll("select");

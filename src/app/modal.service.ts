@@ -8,6 +8,7 @@ export class ModalService {
     constructor()
     {
         console.log("Modal service instanciated");
+        
     }
   // Observable string sources
    openchatwindow:Subject<any> = new Subject<any>();
@@ -28,7 +29,7 @@ export class ModalService {
  
   closechatbox():void
   {
-console.log('closechatbox called');
+    console.log('closechatbox called');
     this.closechatwindow.next();
   }
 

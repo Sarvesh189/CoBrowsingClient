@@ -1,9 +1,9 @@
-import{Component,HostListener,forwardRef } from '@angular/core';
+import{Component,forwardRef,OnInit } from '@angular/core';
 import{HerosocketService} from './herosocket.service';
 import { ModalService } from './modal.service';
 import{ScreenSharingParent} from './Parent';
 import{SocketMessage} from './Message';
-
+import{Logger} from './Utility';
 @Component({
     selector:"share-screen",
     template:`<hr/><div class="screenshare">
@@ -23,30 +23,22 @@ export class SharescreenComponent extends ScreenSharingParent{
     isVisible:boolean=false;
     ssurl:string = "";
     key:any;
-   
+    IgnoreControls:string[]=["btnChatMessageSend","chatInput","chatHistory"];
     constructor(public  herosocketservice:HerosocketService,private modalService:ModalService){
         super();
         this.btnText = "collaborate";
+        
       //  alert('screenshare instanciated')
     }
 
-     @HostListener('document:keyup', ['$event'])
-     handleKeyboardEvent(event: KeyboardEvent) { 
+   
     
-        if(this.btnText!="share screen")
-     this.herosocketservice.sendMessage(this.screenshotPage());
-    
-
+    sendMessage=()=>{
+         this.herosocketservice.sendMessage(this.screenshotPage());
+         return true;
     }
-    @HostListener('document:click', ['$event'])
-     handleclickEvent(event: MouseEvent) { 
-      
-      
-       if(this.btnText!="collaborate")
-     this.herosocketservice.sendMessage(this.screenshotPage());
-    
 
-    }
+   
 
 
     onSharescreen():void{
@@ -56,20 +48,24 @@ export class SharescreenComponent extends ScreenSharingParent{
         {
      
       
-      this.herosocketservice.connect("").then((item)=>{
-          console.log(item);
-        
-        });
+          this.herosocketservice.connect("").then((item)=>{
+          Logger.log(item.toString());});
+       //  this.addEventToMainconent();
+         document.getElementById("mastercontent").addEventListener("keyup",this.sendMessage);
+        document.getElementById("mastercontent").addEventListener("click",this.sendMessage);// document.getElementById("mastercontent").removeEventListener("click",arguments.callee);});
       this.herosocketservice.sendMessage(this.screenshotPage());
       this.btnText="stop sharing screen";
        ;
     }else{
-        console.log("screen sharing stopped")
+        Logger.log("screen sharing stopped")
         
             this.herosocketservice.close();
             this.herosocketservice.userInfo.Init();
             this.modalService.closechatbox();
             this.btnText="collaborate";
+           document.getElementById("mastercontent").removeEventListener("keyup" ,this.sendMessage);
+           document.getElementById("mastercontent").removeEventListener("click" ,this.sendMessage);
+    
            }
        
    
@@ -110,8 +106,8 @@ addOnPageLoad_():void {
   // TODO: current limitation is css background images are not included.
  screenshotPage():any {
 
-      this.urlsToAbsolute(document.images);
-       this.urlsToAbsolute(document.querySelectorAll("link[rel='stylesheet']"));
+    //  this.urlsToAbsolute(document.images);
+   //    this.urlsToAbsolute(document.querySelectorAll("link[rel='stylesheet']"));
       //  var screenshot2 = document.documentElement.cloneNode(true);
         let screenshot2 = document.getElementById("mastercontent").cloneNode(true);
     //    alert(screenshot2.childNodes.length);

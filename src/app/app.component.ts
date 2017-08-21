@@ -14,9 +14,7 @@ import { Component } from '@angular/core';
 		<li>
 		 <a routerLink="/Hero">Heroes</a>
 		</li>	
-		<li>
-		 <a routerLink="/Mirror">Mirrors</a>
-		</li>	
+	
 		<li>
 		<a routerLink="/newhero">New hero</a>
 		</li>	

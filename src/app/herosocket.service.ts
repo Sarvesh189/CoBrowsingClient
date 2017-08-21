@@ -3,10 +3,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 import{Guid} from './UniqueNumber';
 import{SocketMessage,_userInfo,UserInfoMessage} from './Message';
 import{MessageObservableService} from './modal.service';
+import{Logger} from './Utility';
+
 @Injectable()
  export class HerosocketService  {
        mirrorScreenText:string;
-       host:string = "ws://localhost:5599/api/messaging";
+       host:string = "ws://localhost:8080/api/messaging";
        webconnector: WebSocket;
        currentscroll:any={"sx":"","sy":"","x":"","y":""};
        cobrowsingurl:string;
@@ -25,7 +27,7 @@ constructor(private _messageOservice:MessageObservableService)
 
 
        connect(chatroomid:string):Promise<boolean>{
-         //  alert(this.currentchatroomid);
+       Logger.log("trying to connect chatroomid :"+chatroomid);
         if(this.currentchatroomid!="")
             {
                 
@@ -41,37 +43,34 @@ constructor(private _messageOservice:MessageObservableService)
         
         
         this.webconnector.onmessage = ((messageEvent)=>{
-       
+            Logger.log("Message arrived");
 
             let socketMessage = JSON.parse(messageEvent.data);
-            console.log(socketMessage);
+             Logger.log("Message: "+socketMessage);
             if(socketMessage.MessageType=="1")
                 {
-                    this.userId = socketMessage.UserId;     
+                    Logger.log("connect message with userid:"+socketMessage.UserId);
+                    this.userId = socketMessage.UserId;  
+                     this.userInfo.SetUserInfoMessage(this.message.MessageType,this.message.UserCount,"connected")    
 
                 }
            else if(socketMessage.MessageType=="4")
                 {
-                    console.log(socketMessage.message);
+                    Logger.log(socketMessage.message);
                     this.chatMessage = socketMessage.Message;
-                    this._messageOservice.PublishMessage(socketMessage.Message);
+                    this._messageOservice.PublishMessage(socketMessage.UserId+":"+socketMessage.Message);
                 }
                 else{
             this.message.MessageType=socketMessage.MessageType;
             this.message.UserCount = socketMessage.UserCount;
             this.message.Message = socketMessage.Message;
-            console.log( this.message.Message);
             this.message.ChatRoomId = socketMessage.ChatRoomId;
-           // console.log(this.message.GetMessageInfo());
+           Logger.log(this.message.GetMessageInfo());
             this.sx=socketMessage.ScrollX;
             this.sy = socketMessage.ScrollY;
            // alert(this.sx);
          //   alert(this.sy)
-            if(this.message.MessageType=="1")
-                {
-                     this.userInfo.SetUserInfoMessage(this.message.MessageType,this.message.UserCount,"connected")  
-
-                }
+        
              }     
           }
         );
