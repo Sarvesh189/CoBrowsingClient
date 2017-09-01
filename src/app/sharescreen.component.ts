@@ -36,7 +36,11 @@ export class SharescreenComponent extends ScreenSharingParent{
    
     
     sendMessage=()=>{
-         this.herosocketservice.sendMessage(this.screenshotPage());
+        
+        setTimeout(()=> {
+          this.herosocketservice.sendMessage(this.screenshotPage());  
+        }, 200);
+         
       //  this.herosocketservice.sendMessage(this.screenshotBlobPage());
          return true;
     }

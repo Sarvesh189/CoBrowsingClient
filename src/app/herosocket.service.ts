@@ -100,7 +100,7 @@ constructor(private _messageOservice:MessageObservableService)
               this.webconnector.send(JSON.stringify(messageObject));
               console.log("sent");
  
-            }, 500);   
+            }, 20);   
       }
     
       
