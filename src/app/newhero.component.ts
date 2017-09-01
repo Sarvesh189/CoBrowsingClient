@@ -1,10 +1,11 @@
 import{Component,Input,ViewEncapsulation} from '@angular/core';
 import{Hero} from './hero';
+import{CustomDirective} from './custom.directive';
 @Component({
     selector:"new-hero",
     template:`<share-screen></share-screen>
-     <div id="mastercontent" class ="newhero">              
-                <div> <label>Id:</label> <input value="{{hero.id}}" type="text"/></div>
+     <div id="mastercontent" class ="newhero" (mouseup)="highlight()">              
+                <div> <label>Id:</label> <input value="{{hero.id}}" data-mask='true' type="text"/></div>
                  <div><label>first name:</label> <input value="{{hero.name}}" type="text" /></div>
                 <div><label>last name:</label> <input value="{{hero.name}}" type="text" /></div>
                  <div><label>address:</label> <input value="{{hero.name}}" type="text" /></div>
@@ -24,5 +25,7 @@ import{Hero} from './hero';
 export class NewheroComponent 
 {
      @Input()hero:Hero = {name:'',id:1};
-
+     highlight():void{
+            window.document.execCommand("hiliteColor", true, "#ffffb3");
+     }
 }

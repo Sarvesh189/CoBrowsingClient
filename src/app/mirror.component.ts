@@ -1,8 +1,12 @@
-import{Component,DoCheck,Pipe,PipeTransform,KeyValueDiffers,Inject,ViewEncapsulation,OnInit} from '@angular/core';
+import{Component,DoCheck,Pipe,PipeTransform,KeyValueDiffers,Inject,ViewEncapsulation,OnInit,HostListener} from '@angular/core';
 import{HerosocketService} from './herosocket.service';
 import { DomSanitizer,DOCUMENT } from '@angular/platform-browser';
 import{ActivatedRoute} from'@angular/router';
 import { ModalService,MessageObservableService } from './modal.service';
+import{MouseEventMessage} from './EventMessage';
+import {cbEventSocketService} from './cbEventSocket.service';
+import {HandleEvent} from './Utility';
+
 
 @Pipe({ name: 'safeHtml'})
 export class SafeHtmlPipe implements PipeTransform  {
@@ -22,25 +26,28 @@ export class SafeHtmlPipe implements PipeTransform  {
    template:`<div id="content" [innerHTML]="herosocketservice.message.Message|safeHtml" ></div>
    <chat-modal></chat-modal>`,
  encapsulation: ViewEncapsulation.None,
-   providers:[HerosocketService]
+   providers:[HerosocketService,cbEventSocketService]
 })
 export class MirrorComponent implements DoCheck,OnInit
 {
     message:string;
     differ: any;
-    
-    constructor(public herosocketservice:HerosocketService,public domSanitize:DomSanitizer,private differs: KeyValueDiffers,@Inject(DOCUMENT) private  mirrordocument: Document, private currentroute:ActivatedRoute,private modalService:ModalService,private messageOservice:MessageObservableService)
+    chatroomId:string;
+    handleEvent:HandleEvent;
+    constructor(public herosocketservice:HerosocketService,public domSanitize:DomSanitizer,private differs: KeyValueDiffers,@Inject(DOCUMENT) private  mirrordocument: Document, private currentroute:ActivatedRoute,private modalService:ModalService,private messageOservice:MessageObservableService,private cbEventService:cbEventSocketService)
     {
+      this.handleEvent = new HandleEvent();
       console.log("Mirror component instanciation started");
       let _chatroomId='';
       currentroute.url.forEach(function(item) { 
       if(item[1]!=null)
-        herosocketservice.currentchatroomid = item[1].toString();
-      
-       
+        {
+        herosocketservice.currentchatroomid = item[1].toString();     
+        
        _chatroomId = item[1].toString();
+        }
       });
-      
+      this.chatroomId = _chatroomId;
         console.log(_chatroomId);
       
       
@@ -50,6 +57,33 @@ export class MirrorComponent implements DoCheck,OnInit
     
     
       }
+
+      @HostListener('click',['$event'])
+      onClick(evt:MouseEvent)
+      {
+         let _chatroomId = this.chatroomId;
+        
+         
+         let parentlocation = this.handleEvent.getOffset();
+         let mouseMsg = new MouseEventMessage(1,evt.srcElement.className+"$"+evt.srcElement.nodeName+"$"+evt.srcElement.id,'click','','',false,false,evt.pageX,evt.pageY,evt.clientX+window.scrollX,evt.clientY+window.scrollY,'','','','','','',parentlocation.left,parentlocation.top);
+
+         
+         this.cbEventService.sendMessage(mouseMsg);
+        
+         
+
+      }
+
+      // getOffset() {
+
+      //   let el = document.getElementById("mastercontent").getBoundingClientRect();
+        
+      //   return {
+      //     left: el.left + window.scrollX,
+      //     top: el.top + window.scrollY
+      //   }
+      // }
+
       ngOnInit()
       {
 
@@ -59,9 +93,10 @@ export class MirrorComponent implements DoCheck,OnInit
            }
          else {console.log("modal service is null");}
 
-        
+        let chatroomid = this.chatroomId;
 
          this.herosocketservice.connect("");
+         this.cbEventService.connect(chatroomid).then((item)=>{console.log(item)});
       }
       ngDoCheck()
       {

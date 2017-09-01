@@ -9,7 +9,17 @@ export class SocketMessage
 
     }
 }
+export class SocketMessage2
+{
+   
+    constructor( public MessageType:string,public Message:Blob, public UserCount:string, public ChatRoomId:string,public UserId:string,public ScrollX:string, public ScrollY:string, public X:string, public Y:string)
+    {}
 
+    GetMessageInfo():string{
+        return "MessageType: "+this.MessageType+ " Message: "+this.Message + " chatroomid "+this.ChatRoomId;
+
+    }
+}
 export class UserInfoMessage
 {
     MessageType:string;

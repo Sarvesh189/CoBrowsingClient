@@ -16,7 +16,7 @@ import{SocketMessage} from './Message';
                     <textarea cols="30" rows="10"  id="chatHistory" disabled>{{chatHistory}}</textarea>
                     <button id="btnChatMessageSend"  (click)="SendMessage($event)"  style="float: right" >Send</button>
                         <div style="overflow: hidden; padding-right: .5em;">
-                                <input placeholder="enter message" type="text" [(ngModel)]="chatMessage"  id="chatInput" style="width: 100%;" />
+                                <input placeholder="enter message" type="text" (keyup.Enter)="SendMessage($event)" [(ngModel)]="chatMessage"  id="chatInput" style="width: 100%;" />
                         </div>
                 </div>
             </div>`,
@@ -64,6 +64,7 @@ Display(info:any):void{
     console.log("Display");
 
 }
+
 SendMessage(event$:Event):void{
     
  console.log("send message button is clicked");   

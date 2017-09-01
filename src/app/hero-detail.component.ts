@@ -4,9 +4,9 @@ import {HerosocketService} from './herosocket.service';
 
 @Component({
     selector:'hero-detail',
-    template:`<div id="herodiv" *ngIf="hero">
+    template:`<div id="herodiv" *ngIf="hero" >
             
-            <h2>{{hero.name}} details!</h2>
+            <h2>{{hero.name}} </h2>
             <div><label>id: </label>{{hero.id}}</div>
      <div>
         <label>name: </label>
@@ -24,7 +24,13 @@ export class HeroDetailComponent implements AfterViewInit
 
    @Input() hero:Hero;
 
-   
+    highlight():void{
+            window.document.execCommand("hiliteColor", true, "#ffffb3");
+     }
+
+     removeFormat():void{
+        window.document.execCommand("removeformat", false, "");
+     }
 
  ngAfterViewInit():void{
     this.observershared();

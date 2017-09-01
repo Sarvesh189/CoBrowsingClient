@@ -14,7 +14,7 @@ import { RouterModule, Routes }   from '@angular/router';
 import {screenshare} from './sharingevent.directive';
 import{ModalService,MessageObservableService}from './modal.service';
 import{ModalComponent} from './modal.component';
-
+import{CustomDirective} from './custom.directive';
 //import{SafeHtmlPipe} from './safe-html.pipe';
 
 const appRoutes: Routes = [
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent,ModalComponent,HeroDetailComponent,HeroesComponent,MirrorComponent,SharescreenComponent,NewheroComponent,screenshare,SafeHtmlPipe],
+  declarations: [AppComponent,ModalComponent,HeroDetailComponent,HeroesComponent,MirrorComponent,SharescreenComponent,NewheroComponent,screenshare,SafeHtmlPipe,CustomDirective],
   imports: [BrowserModule,FormsModule,RouterModule.forRoot(appRoutes)],
   providers: [HeroService,HerosocketService,ModalService,MessageObservableService],
   bootstrap: [AppComponent]

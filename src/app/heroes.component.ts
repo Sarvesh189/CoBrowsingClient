@@ -1,4 +1,4 @@
-import { Component,OnInit,ViewEncapsulation } from '@angular/core';
+import { Component,OnInit,ViewEncapsulation,HostListener } from '@angular/core';
 import {Hero} from './hero';
 import { HeroService } from './hero.service';
 import { HerosocketService }         from './herosocket.service';
@@ -34,6 +34,10 @@ constructor(private heroService:HeroService, public herosocketservice:Herosocket
   
   }
 
+  @HostListener('click', ['$event']) MouseEventHandler(ev:Event):void{
+    console.log('click event detail')
+    console.log(ev);
+  }
   
   onSelect(hero:Hero):void{
     this.selectedHero = hero;

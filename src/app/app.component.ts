@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
  
 @Component({
   selector: 'my-app',
-  template: `
-  
+  template: `  
 <div id="main">
     <div class="cleared reset-box"></div>
 <div class="bar nav">
@@ -12,11 +11,14 @@ import { Component } from '@angular/core';
 <div class="nav-inner">
 	<ul class="hmenu">
 		<li>
-		 <a routerLink="/Hero">Heroes</a>
+		 <a routerLink="/Hero">Formula-one champions</a>
 		</li>	
 	
 		<li>
-		<a routerLink="/newhero">New hero</a>
+		<a routerLink="/newhero">New champion</a>
+		</li>	
+		<li>
+		<a >collaborate</a>
 		</li>	
 	</ul>
 </div>
@@ -27,5 +29,5 @@ import { Component } from '@angular/core';
   `
 })
 export class AppComponent {
-  title = 'Tour of Heroes';
+  title = 'Our formula-one champions';
 }
